@@ -42,15 +42,15 @@ const initialDistances = (): void => {
 }
 
 // Sort priority queue
-const sortQueue = () => { priorityQueue.sort((a, b) => a?.distance - b?.distance) }
+const sortQueue = (): void => { priorityQueue.sort((a, b) => a?.distance - b?.distance) }
 
 // Dijkstra's relax function
-const relax = (source: string, destination: string, cost: number) => {
+const relax = (source: string, destination: string, cost: number): void => {
 
     const sourceDistance = distance.get(source)
     const destDistance = distance.get(destination)
 
-    if (sourceDistance === undefined || destDistance === undefined ) return
+    if (sourceDistance === undefined || destDistance === undefined) return
     const newDistance: number = sourceDistance + cost
     if (newDistance < destDistance) {
 
@@ -67,7 +67,7 @@ const relax = (source: string, destination: string, cost: number) => {
 }
 
 // Main function
-const dijkstra = () => {
+const dijkstra = (): void => {
 
     // Iterate until priority queue becomes empty
     while (priorityQueue.length != 0) {
@@ -75,7 +75,6 @@ const dijkstra = () => {
         const data = priorityQueue.shift()
         if (!data) continue
 
-        // visited.add( data?.vertex )
         const edges = graphDJ.get(data?.vertex)
         if (!edges) continue
 
@@ -86,20 +85,20 @@ const dijkstra = () => {
 }
 
 // Print final distances
-const display = () => {
+const display = (): void => {
 
     distance.forEach((weight, vertex) => console.log(`${vertex}= ${weight}`))
 
 }
 
-addVertex('A', 'B', 2)
-addVertex('A', 'C', 4)
-addVertex('B', 'C', 1)
-addVertex('B', 'D', 7)
-addVertex('C', 'E', 3)
-addVertex('D', 'E', 2)
-addVertex('D', 'F', 1)
-addVertex('E', 'F', 5)
+addVertex('A', 'B', 2, true)
+addVertex('A', 'C', 4, true)
+addVertex('B', 'C', 1, true)
+addVertex('B', 'D', 7, true)
+addVertex('C', 'E', 3, true)
+addVertex('D', 'E', 2, true)
+addVertex('D', 'F', 1, true)
+addVertex('E', 'F', 5, true)
 
 initialDistances()
 dijkstra()
